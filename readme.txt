@@ -63,7 +63,7 @@ env.conf
 --------------------//-------------------------
 
 ##############################################
-#TODO 30-11-2021
+#TODO
 ##############################################
 TODO : Melhorar Scripit para destruir
 containers  realiza testes
@@ -73,7 +73,7 @@ TODO: Testes do item anterior
 --------------------//-------------------------
 
 ##############################################
-#FIX 30-11-2021
+#FIX
 ##############################################
 FIX: Quando crio os arquivos pelo composer
 preciso alterar minhas permissões de usuário
