@@ -66,20 +66,24 @@ while read LINHA;do
 	[ "$(echo $LINHA | cut -c1)" = "#" ] && continue
 	#Acessa os valore atentar para espaço após o - não \
 	#apontar pro conteudo "$LINHA"
-	set - $
+	set - $LINHA
 	#coloca chave em minusculo para comparação
 	chave=$(echo $1 | tr '[:upper:]' '[:lower:]')
 	shift
 	#despreza comentário
 	valor=$(echo $* | cut -d"#" -f1)
+	echo "+++-->$chave=$valor"
 	case "$chave" in
 		imagename)
 			#TODO:colocar proteção para valores inapropriados
-			IMAGE_NAME="$VALOR"
+			IMAGE_NAME="$valor"
 		;;
 		containername)
 			#TODO:colocar proteção para valores inapropriados
-			CONTAINER_NAME="$VALOR"
+			CONTAINER_NAME="$valor"
+		;;
+		port)
+			PORT="$valor"
 		;;
 		*)
 			echo "Erro no Arquivo de Configuração"
@@ -91,9 +95,9 @@ done <"$CONFIG_FILE"
 ###########################################################################
 #							PROCESSAMENTO
 #_________________________________//_______________________________________
-#docker build -t "$IMAGE_NAME" .
-#echo "+++-->Imagem montada"
-#docker run -it \
+docker build -t "$IMAGE_NAME" .
+echo "+++-->Imagem montada"
+docker run -it \
 	--name "$CONTAINER_NAME"\
 	-p 80:"$PORT" \
 	-v $(pwd)/app:/var/www/html/ \

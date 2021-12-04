@@ -65,19 +65,27 @@ env.conf
 ##############################################
 #TODO
 ##############################################
+30-11-2021
 TODO : Melhorar Scripit para destruir
 containers  realiza testes
+04-12-2021
 DONE: Criar opções chamadas de help
 e versão no script de criação do container
-TODO: Testes do item anterior
+
 --------------------//-------------------------
 
 ##############################################
 #FIX
 ##############################################
+30/11/2021
 FIX: Quando crio os arquivos pelo composer
 preciso alterar minhas permissões de usuário
 na máquina host para alterar os arquivos no
 volume nomeado
+04-12-2021
+FIX:Quando crio o container o apache retorna
+o erro AH00558
+|
+ ->https://www.digitalocean.com/community/tutorials/apache-configuration-error-ah00558-could-not-reliably-determine-the-server-s-fully-qualified-domain-name
 --------------------//-------------------------
 
