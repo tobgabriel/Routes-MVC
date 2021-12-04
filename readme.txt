@@ -50,19 +50,26 @@ containers
 ##############################################
 #Versão
 ##############################################
-Versão 1.0 - 30-11-2021
+Versão 1.0 - 
+
+30-11-2021
 Criado arquivos Dockerfile e script
 para build da imagem e criação de
 container com volume nomeado
+
+04-12-2021
+Atualizado create-container.sh criado arquivo
+env.conf
 --------------------//-------------------------
 
 ##############################################
 #TODO 30-11-2021
 ##############################################
 TODO : Melhorar Scripit para destruir
-containere Testes
-TODO: Criar opções chamadas de help
+containers  realiza testes
+DONE: Criar opções chamadas de help
 e versão no script de criação do container
+TODO: Testes do item anterior
 --------------------//-------------------------
 
 ##############################################
