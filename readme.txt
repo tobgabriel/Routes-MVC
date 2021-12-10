@@ -71,6 +71,10 @@ containers  realiza testes
 04-12-2021
 DONE: Criar opções chamadas de help
 e versão no script de criação do container
+07-12-2021
+DONE: Estruturado pastas e realizado testes no
+create-container.sh
+TODO: Proteção de valores indevidos no env.conf
 
 --------------------//-------------------------
 
@@ -86,6 +90,6 @@ volume nomeado
 FIX:Quando crio o container o apache retorna
 o erro AH00558
 |
- ->https://www.digitalocean.com/community/tutorials/apache-configuration-error-ah00558-could-not-reliably-determine-the-server-s-fully-qualified-domain-name
+ ->https://do.co/32XccM2
 --------------------//-------------------------
 

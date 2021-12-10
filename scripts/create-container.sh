@@ -2,7 +2,7 @@
 ###########################################################################
 #					Autor: Tiago de Oliveira Braga Gabriel
 #					Data: 30/11/2021
-#					Revisão: 04/12/2021
+#					Revisão: 07/12/2021
 #_________________________________//_______________________________________
 
 ###########################################################################
@@ -11,6 +11,8 @@
 #			para o ambiente
 #Versão:v1.0: Script de Processamento Básico
 #Versão:v1.1: Inclusão de mensagens de uso e arquivo conf
+#Versão:v1.2: Estruturação da árvore de arquivos e apontar volume nomeado
+#			  para pasta pai
 #_________________________________//_______________________________________
 
 ###########################################################################
@@ -100,5 +102,6 @@ echo "+++-->Imagem montada"
 docker run -it \
 	--name "$CONTAINER_NAME"\
 	-p 80:"$PORT" \
+	#Aponta para pasta /app na pasta pai do projeto
 	-v $( echo $(pwd) | sed -e s/\\/[^\\/]*$//)/app:/var/www/html/ \
 	 "$IMAGE_NAME"
