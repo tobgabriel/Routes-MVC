@@ -41,10 +41,15 @@
 S##############################################
 #Autor:Tiago Gabriel <tobgabriel@gmail.com>
 #Data:30-11-2021
-#Revisão:
+#Revisão: 10-12-2021
 ##############################################
 Ambiente de Estudo para PHP em ambiente de 
 containers
+
+O artigo do @alxbbarbosa me ajudou a estruturar
+o sistema de rotas.
+|
+ -->https://bitlybr.com/Hca0
 --------------------//-------------------------
 
 ##############################################
@@ -60,6 +65,9 @@ container com volume nomeado
 04-12-2021
 Atualizado create-container.sh criado arquivo
 env.conf
+
+10-12-2021
+Criado framework de rotas php	
 --------------------//-------------------------
 
 ##############################################
@@ -75,6 +83,8 @@ e versão no script de criação do container
 DONE: Estruturado pastas e realizado testes no
 create-container.sh
 TODO: Proteção de valores indevidos no env.conf
+10-12-2021
+TODO: Criar o dispacher
 
 --------------------//-------------------------
 
