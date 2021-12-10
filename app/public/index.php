@@ -1,3 +1,3 @@
 <?php
 
-	echo "Este é um ambiente php containerizado";
+	require_once ''../bootstrap.php';'
