@@ -8,7 +8,7 @@ class Router{
 
     public function __construct(){
         $this->route_collection= new RouteCollection();
-        $this->$dispacher= new Dispacher;
+        $this->dispacher= new Dispacher;
     }
     public function get(string $route,$action){
         try{
