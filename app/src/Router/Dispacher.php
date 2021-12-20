@@ -3,13 +3,18 @@
 namespace app\Router;
 
 class Dispacher{
-    dispach($callback,$params=[]){
-        //aqui ele vai verificar se é um callable ou entregar para o controller correto
-        if(is_callable($callback)){
-            return call_user_func($callback,array_values($params));
-        }elseif(is_string($callback)){
-            //XXX
-            return false;
-        }
+    public function dispach($result){
+            if(is_callable($result->callback)){
+                if(isset($result->params)){
+                    call_user_func_array($result->callback,$result->params);
+                }else{
+                    call_user_func($result->callback);
+                }
+            }elseif(is_string($result->callback)){
+                echo $result;
+                return true;
+            }else{
+                echo "<br>não achou";
+            }
     }
 }

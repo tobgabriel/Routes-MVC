@@ -4,11 +4,11 @@ namespace app\Router;
 
 class Router{
     protected $route_collection;
-    //protected $dispacher;
+    protected $dispacher;
 
     public function __construct(){
         $this->route_collection= new RouteCollection();
-        //$this->$dispacher= new Dispacher();
+        $this->$dispacher= new Dispacher;
     }
     public function get(string $route,$action){
         try{
@@ -45,14 +45,7 @@ class Router{
     public function find($method,$route){
         $result=$this->route_collection->getRoute($method,$route);
         if($result){
-            //é aqui que vou entregar pro dispacher pra ele se virar
-            if(is_callable($result->callback)){
-                call_user_func($result->callback());
-                return true;
-            }elseif(is_string($result->callback)){
-            	echo $result;
-                return true;
-            }
+            $this->dispacher->dispach($result);
         }else{
             echo "<br>não achou";
         }
