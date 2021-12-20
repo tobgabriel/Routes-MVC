@@ -46,10 +46,10 @@ class Router{
         $result=$this->route_collection->getRoute($method,$route);
         if($result){
             //é aqui que vou entregar pro dispacher pra ele se virar
-            if(is_callable($result)){
-            	$result();
+            if(is_callable($result->callback)){
+                call_user_func($return->callback());
                 return true;
-            }elseif(is_string($result)){
+            }elseif(is_string($result->callback)){
             	echo $result;
                 return true;
             }

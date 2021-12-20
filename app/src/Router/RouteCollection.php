@@ -21,12 +21,12 @@
         // /ola-mundo/teste1/teste2 =>/^ola-mundo\/teste1\/teste2$/
         // ola-mundo/teste1/teste2 =>/^ola-mundo\/teste1\/teste2$/
         private function definePattern($pattern) { 
-            $pattern = implode('/', array_filter(explode('/', $pattern)));
+            $pattern = trim($pattern,'/');
             return '/^' . str_replace('/', '\/', $pattern) . '$/';         
         }
         //Garante a remoção de / no início e no final da uri
         private function parseUri($uri){
-            return implode('/', array_filter(explode('/', $uri)));
+            return trim($uri,'/');
         }
         //Função pública de cadastro de rota
         public function addRoute(string $method,string $route,$action){
@@ -52,14 +52,28 @@
         //Procura o retorno da rota
         public function getRoute(string $method, string $route){
             $method=strtoupper($method);
-            $route=$this->definePattern($route);            
             //Se existe rota cadastrada para o método
             if(array_key_exists($method,$this->routes)){
-                //se tem rota cadastrada então procure o que se encaixa no padrão passado
+                //Para cada rota cadastrada para o método
+                //Procure o que se encaixa no padrão passado
             	foreach($this->routes[$method] as $existent_path=>$callback){
-                	if(preg_match($route,$existent_path)){
-                    	return $callback;
+                	//Se a rota cadastrada tiver parametros
+                    if(preg_match_all('/\{[\w]+\}/',$existent_path,$matches)){
+						$fixPart=str_replace('/','\/',$existent_path);
+						foreach($matches[0] as $variablePart){
+    						$fixPart=str_replace($variablePart,'[\w]+',$fixPart);
+    					}    
+                        //Verifica se a parte fixa da rota cadastrada
+                        //bate com a parte fixa da rota passada
+    					if(preg_match('/'.$fixPart.'/',$route)){
+    						echo "Bate";
+    					}					
                     }
+                    //
+                	if(preg_match($route,$existent_path)){
+                    	return (object) ['callback'=>$callback,'uri'=>$existent_path];
+                    }
+                    
                 }
             }
             return false;
