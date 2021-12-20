@@ -8,5 +8,8 @@
     $rt->get('/',function(){
     	echo "Hello World";    
     });
+    $rt->get('ola/{nome}/{idade}',function($nome,$idade){
+    	echo "Hello ".$nome.", ".$idade;    
+    });
 
     

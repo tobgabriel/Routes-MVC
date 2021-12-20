@@ -56,27 +56,34 @@
             if(array_key_exists($method,$this->routes)){
                 //Para cada rota cadastrada para o método
                 //Procure o que se encaixa no padrão passado
-            	foreach($this->routes[$method] as $existent_path=>$callback){
-                	//Se a rota cadastrada tiver parametros
+                foreach($this->routes[$method] as $existent_path=>$callback){
+                    //Se a rota cadastrada tiver parametros
                     if(preg_match_all('/\{[\w]+\}/',$existent_path,$matches)){
-						$fixPart=str_replace('/','\/',$existent_path);
-						foreach($matches[0] as $variablePart){
-    						$fixPart=str_replace($variablePart,'[\w]+',$fixPart);
-    					}    
+                        $fixPart=str_replace('/','\/',$existent_path);
+                        $fixedPartsToRemove=$existent_path;
+                        foreach($matches[0] as $variablePart){
+                            $fixPart=str_replace($variablePart,'[\w]+',$fixPart);
+                            $fixedPartsToRemove=str_replace($variablePart,'|',$fixedPartsToRemove);
+                        }
+                        $values=$route;  
                         //Verifica se a parte fixa da rota cadastrada
                         //bate com a parte fixa da rota passada
-    					if(preg_match('/'.$fixPart.'/',$route)){
-    						echo "Bate";
-    					}					
+                        if(preg_match('/'.$fixPart.'/',$route)){
+                            //Remove os valores da rota passada
+                            foreach(explode('|',$fixedPartsToRemove) as $part){
+                                $values=str_replace($part,'|',$values);
+                            }
+                            $params=explode('|',trim($values,'|'));         					
+                            return (object) ['callback'=>$callback,'params'=>$params];
+                        }					
                     }
-                    //
-                	if(preg_match($route,$existent_path)){
-                    	return (object) ['callback'=>$callback,'uri'=>$existent_path];
-                    }
-                    
+                    //Se não se a rota passada bate com a rota cadastrada
+                    elseif(preg_match($this->definePattern($route),$existent_path)){
+                        return (object) ['callback'=>$callback];
+                    }                    
                 }
             }
             return false;
-    	}
+        }
     }
 ?>

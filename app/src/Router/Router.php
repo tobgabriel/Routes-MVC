@@ -47,7 +47,7 @@ class Router{
         if($result){
             //é aqui que vou entregar pro dispacher pra ele se virar
             if(is_callable($result->callback)){
-                call_user_func($return->callback());
+                call_user_func($result->callback());
                 return true;
             }elseif(is_string($result->callback)){
             	echo $result;
