@@ -16,7 +16,6 @@ o sistema de rotas.
 #Versão
 ##############################################
 Versão 1.0 - 
-
 30-11-2021
 Criado arquivos Dockerfile e script
 para build da imagem e criação de
