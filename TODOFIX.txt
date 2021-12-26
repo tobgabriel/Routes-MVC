@@ -1,0 +1,63 @@
+##############################################
+#Autor:Tiago Gabriel <tobgabriel@gmail.com>
+#Data:30-11-2021
+#Revisão: 10-12-2021
+##############################################
+Ambiente de Estudo para PHP em ambiente de 
+containers
+
+O artigo do @alxbbarbosa me ajudou a estruturar
+o sistema de rotas.
+|
+ -->https://bitlybr.com/Hca0
+--------------------//-------------------------
+
+##############################################
+#Versão
+##############################################
+Versão 1.0 - 
+
+30-11-2021
+Criado arquivos Dockerfile e script
+para build da imagem e criação de
+container com volume nomeado
+04-12-2021
+Atualizado create-container.sh criado arquivo
+env.conf
+10-12-2021
+Criado framework de rotas php	
+26-12-2021
+Criado singleton Route e classe Requisição
+---------------------//-------------------------
+
+##############################################
+#TODO
+##############################################
+30-11-2021
+TODO : Melhorar Scripit para destruir
+containers  realiza testes
+26-12-2021
+TODO: Criar script para destruir especificamente este container
+07-12-2021
+TODO: Proteção de valores indevidos no env.conf
+10-12-2021
+TODO: Criar o dispacher
+--------------------//-------------------------
+
+##############################################
+#FIX
+##############################################
+30-11-2021
+FIX: Quando crio os arquivos pelo composer
+preciso alterar minhas permissões de usuário
+na máquina host para alterar os arquivos no
+volume nomeado
+04-12-2021
+FIX:Quando crio o container o apache retorna
+o erro AH00558
+|
+ ->https://do.co/32XccM2
+ 26-12-2021
+ FIX:melhorar a resposta 404 quando não acha rota
+--------------------//-------------------------
+
