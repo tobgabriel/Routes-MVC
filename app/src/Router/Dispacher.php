@@ -11,10 +11,9 @@ class Dispacher{
                     call_user_func($result->callback);
                 }
             }elseif(is_string($result->callback)){
-                echo $result;
-                return true;
+                echo $result->callback;
             }else{
-                echo "<br>não achou";
+                return false;
             }
     }
 }

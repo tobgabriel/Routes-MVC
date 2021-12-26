@@ -11,5 +11,7 @@
     $rt->get('ola/{nome}/{idade}',function($nome,$idade){
     	echo "Hello ".$nome.", ".$idade;    
     });
+    $rt->get('home','Controller@Home');
+?>
 
     

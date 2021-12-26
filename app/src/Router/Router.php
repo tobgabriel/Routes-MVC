@@ -42,12 +42,14 @@ class Router{
         }
         
     }
-    public function find($method,$route){
-        $result=$this->route_collection->getRoute($method,$route);
+    public function find($request){
+        $result=$this->route_collection->getRoute($request->method(),$request->uri());
         if($result){
-            $this->dispacher->dispach($result);
+            return $this->dispacher->dispach($result);
         }else{
-            echo "<br>não achou";
+            http_response_code(404);
+            require dirname(__DIR__,2). '/public/my404.php';
+            die();
         }
     }
 }
