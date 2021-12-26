@@ -3,15 +3,15 @@
     ini_set('display_errors', true);
     require dirname(__DIR__,1). '/vendor/autoload.php';
 
-    $rt=new app\Router\Router();
-    
-    $rt->get('/',function(){
+    session_start();
+	use app\Router\Route as Route;
+    Route::get('/',function(){
     	echo "Hello World";    
     });
-    $rt->get('ola/{nome}/{idade}',function($nome,$idade){
+    Route::get('ola/{nome}/{idade}',function($nome,$idade){
     	echo "Hello ".$nome.", ".$idade;    
     });
-    $rt->get('home','Controller@Home');
+    Route::get('home','Controller@Home');
 ?>
 
     

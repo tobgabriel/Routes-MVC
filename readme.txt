@@ -61,14 +61,14 @@ Versão 1.0 -
 Criado arquivos Dockerfile e script
 para build da imagem e criação de
 container com volume nomeado
-
 04-12-2021
 Atualizado create-container.sh criado arquivo
 env.conf
-
 10-12-2021
 Criado framework de rotas php	
---------------------//-------------------------
+26-12-2021
+Criado singleton Route e classe Requisição
+---------------------//-------------------------
 
 ##############################################
 #TODO
@@ -76,22 +76,18 @@ Criado framework de rotas php
 30-11-2021
 TODO : Melhorar Scripit para destruir
 containers  realiza testes
-04-12-2021
-DONE: Criar opções chamadas de help
-e versão no script de criação do container
+26-12-2021
+TODO: Criar script para destruir especificamente este container
 07-12-2021
-DONE: Estruturado pastas e realizado testes no
-create-container.sh
 TODO: Proteção de valores indevidos no env.conf
 10-12-2021
 TODO: Criar o dispacher
-
 --------------------//-------------------------
 
 ##############################################
 #FIX
 ##############################################
-30/11/2021
+30-11-2021
 FIX: Quando crio os arquivos pelo composer
 preciso alterar minhas permissões de usuário
 na máquina host para alterar os arquivos no
@@ -101,5 +97,7 @@ FIX:Quando crio o container o apache retorna
 o erro AH00558
 |
  ->https://do.co/32XccM2
+ 26-12-2021
+ FIX:melhorar a resposta 404 quando não acha rota
 --------------------//-------------------------
 

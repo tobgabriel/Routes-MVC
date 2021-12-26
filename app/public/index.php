@@ -1,7 +1,10 @@
 <?php
+
 	require_once 'bootstrap.php';
+	
+	use app\Router\Route as Route;
 	
 	$request= new app\Router\Request();
 
-	$rt->find($request);
+	Route::find($request);
 
