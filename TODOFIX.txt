@@ -40,7 +40,7 @@ TODO: Criar script para destruir especificamente este container
 07-12-2021
 TODO: Proteção de valores indevidos no env.conf
 10-12-2021
-TODO: Criar o dispacher
+TODO: Criar o dispatcher
 --------------------//-------------------------
 
 ##############################################

@@ -3,7 +3,7 @@
 Para mais Informações acesse o [blog](https://tobgabriel.github.io/).
 
 ## Tecnologias utilizadas
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/raspberrypi/raspberrypi-original.svg" />       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original-wordmark.svg" />        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" />       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/composer/composer-original.svg" />     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" />
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/raspberrypi/raspberrypi-original.svg width="40" height="40"/>       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original-wordmark.svg" width="40" height="40"/>        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg" width="40" height="40" />       <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/composer/composer-original.svg" width="40" height="40" />     <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bash/bash-original.svg" width="40" height="40" />
 
 ## Como Utilizar
 <p style='text-align:justify;'>Este projeto foi desenvolvido no Raspbian(armv7), para rodar um container mariadb compatível com a arquitetura do processador foi necessário utilizar a imagem alpine,tive problemas em realizar o pull da imagem.</p>
