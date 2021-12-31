@@ -43,14 +43,19 @@ class Router{
         
     }
     public function find($request){
-        $result=$this->route_collection->getRoute($request->method(),$request->uri());
-        if($result){
-            return $this->dispacher->dispach($result);
-        }else{
-            http_response_code(404);
-            require dirname(__DIR__,2). '/public/my404.php';
-            die();
+        try{
+            $result=$rt->getRoute($request->method(),$request->uri());
+            if(!$result){
+                echo "Página não encontrada";
+            }else{    	
+                if(isset($result->params)){
+                    call_user_func_array($result->callback,$result->params);
+                }else{
+                    call_user_func($result->callback);
+                }
+            }
+        }catch(Exception $e){
+            $e->getMessage();
         }
-    }
 }
     ?>

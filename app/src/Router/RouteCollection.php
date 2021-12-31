@@ -1,37 +1,50 @@
 <?php
-    /*
-    *  Autor: Tiago de Oliveira Braga Gabriel
-    *  Data: 07-12-2021
-    *  Revisão:09-12-2021
-    *  
-    *   A função desta classe é salvar os callables de resposta a rota
-    *   no array e prover métodos para cadastro desses callables e recuperação
-    *   add($method,$route,$action) e where
-    */
-
     namespace app\Router;
 
-     class RouteCollection{
-        //Array associativo salva rotas no modelo:
-        // $routes['GET']['ola-mundo'] = function(){echo "ola mundo!";}
+    class RouteCollection{
         private $routes=[];
-        
-        //UTILITÁRIOS
-        //Parser da uri para expressão regular a ser buscada na rota. Ex.:
-        // /ola-mundo/teste1/teste2 =>/^ola-mundo\/teste1\/teste2$/
-        // ola-mundo/teste1/teste2 =>/^ola-mundo\/teste1\/teste2$/
+         //UTILITÁRIOS        
         private function definePattern($pattern) { 
-            $pattern = trim($pattern,'/');
+            $pattern = $this->parseUri($pattern);
             return '/^' . str_replace('/', '\/', $pattern) . '$/';         
         }
-        //Garante a remoção de / no início e no final da uri
         private function parseUri($uri){
-            return trim($uri,'/');
+            return $uri=="/" ? "/" : trim($uri,'/');
         }
-        //Função pública de cadastro de rota
+        private function checkUrl($route,$pattern){
+			$route= $this->parseUri($route);
+			if(preg_match_all('/\{[\w]+\}/',$pattern,$matches)){
+            	$fixPart=str_replace('/','\/',$pattern);
+            	foreach($matches[0] as $variablePart){
+                	$fixPart=str_replace($variablePart,'[\w]+',$fixPart);
+            	}
+                $fixPart="/^".$fixPart."$/";
+                if(preg_match($fixPart,$route)){
+                	return 2;
+                }
+            }elseif(preg_match($this->definePattern($route),$pattern)){
+                return 1;
+            }
+            return 0;
+        }
+        private function getParams($route,$pattern){
+            $fixedPartsToRemove=$pattern;
+            if(preg_match_all('/\{[\w]+\}/',$pattern,$matches)){
+                foreach($matches[0] as $variablePart){
+                    $fixedPartsToRemove=str_replace($variablePart,'|',$fixedPartsToRemove);
+                }
+                $values=$this->parseUri($route);
+                foreach(explode('|',$fixedPartsToRemove) as $part){
+                    $values=str_replace($part,'|',$values);
+                }
+                    preg_match_all('/(?!\{)[\w]+(?=\})/',$pattern,$matches);
+                    $params=array_combine($matches[0],explode('|',trim($values,'|')));
+                    return $params;   
+            }
+        }
+        //Acessores
         public function addRoute(string $method,string $route,$action){
-            $method=strtoupper($method);
-            $route=$this->parseUri($route);
+            $route= $this->parseUri($route);
             switch($method){
                 case 'GET':
                     $this->routes['GET'][$route]=$action;
@@ -46,44 +59,33 @@
                     $this->routes['DELETE'][$route]=$action;
                     break;
                 default:
-                    throw new \Exception('Tipo de requisição não implementado');
+                    throw new \Exception('ERROR 0x0001:cadastro de requisições para este método não implementada.');
             }
         }
-        //Procura o retorno da rota
-        public function getRoute(string $method, string $route){
-            $method=strtoupper($method);
+        public function getRoute($method, $route){
+            $result= new stdClass;
             //Se existe rota cadastrada para o método
             if(array_key_exists($method,$this->routes)){
-                //Para cada rota cadastrada para o método
-                //Procure o que se encaixa no padrão passado
                 foreach($this->routes[$method] as $existent_path=>$callback){
-                    //Se a rota cadastrada tiver parametros
-                    if(preg_match_all('/\{[\w]+\}/',$existent_path,$matches)){
-                        $fixPart=str_replace('/','\/',$existent_path);
-                        $fixedPartsToRemove=$existent_path;
-                        foreach($matches[0] as $variablePart){
-                            $fixPart=str_replace($variablePart,'[\w]+',$fixPart);
-                            $fixedPartsToRemove=str_replace($variablePart,'|',$fixedPartsToRemove);
-                        }
-                        $values=$route;  
-                        //Verifica se a parte fixa da rota cadastrada
-                        //bate com a parte fixa da rota passada
-                        if(preg_match('/'.$fixPart.'/',$route)){
-                            //Remove os valores da rota passada
-                            foreach(explode('|',$fixedPartsToRemove) as $part){
-                                $values=str_replace($part,'|',$values);
-                            }
-                            $params=explode('|',trim($values,'|'));         					
-                            return (object) ['callback'=>$callback,'params'=>$params];
-                        }					
+                    switch($this->checkUrl($route,$existent_path)){
+                    	case 2:
+                        	$result->params=$this->getParams($route,$existent_path);
+                            $result->callback=$callback;
+                            return $result;
+                        break;
+                        case 1:
+                        	$result->callback=$callback;
+                            return $result;
+                        break;
+                        case 0:
+                        	continue;
+                        break;
+                        default:                        	
+                        	throw new \Exception('ERROR 0x0002:falha na recuperação da rota.');
                     }
-                    //Se não se a rota passada bate com a rota cadastrada
-                    elseif(preg_match($this->definePattern($route),$existent_path)){
-                        return (object) ['callback'=>$callback];
-                    }                    
                 }
             }
             return false;
         }
-    }
+}
 ?>
