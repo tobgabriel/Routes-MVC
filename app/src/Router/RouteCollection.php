@@ -11,43 +11,31 @@ class RouteCollection{
     private function parseUri($uri){
         return $uri == "/" ? "/" : trim($uri, "/");
     }
-    private function checkUrl($route, $pattern){
-        $route = $this->parseUri($route);
-        if (preg_match_all("/\{[\w]+\}/", $pattern, $matches)) {
-            $fixPart = str_replace("/", "\/", $pattern);
-            foreach ($matches[0] as $variablePart) {
-                $fixPart = str_replace($variablePart, "[\w]+", $fixPart);
-            }
-            $fixPart = "/^" . $fixPart . "$/";
-            if (preg_match($fixPart, $route)) {
+    private function checkUrl($route,$pattern){
+        $route= $this->parseUri($route);
+        if(preg_match('/\{[\w]+\}/',$pattern)){ 
+            $fixPart=str_replace('/','\/',$pattern);
+            $fixPart=preg_replace('/\{[\w]+\}/','[\w]+',$fixPart);
+            $fixPart="/^".$fixPart."$/";
+            if(preg_match($fixPart,$route)){
                 return 2;
             }
-        } elseif (preg_match($this->definePattern($route), $pattern)) {
+        }elseif(preg_match($this->definePattern($route),$pattern)){
             return 1;
         }
         return 0;
     }
-    private function getParams($route, $pattern){
-        $fixedPartsToRemove = $pattern;
-        if (preg_match_all("/\{[\w]+\}/", $pattern, $matches)) {
-            foreach ($matches[0] as $variablePart) {
-                $fixedPartsToRemove = str_replace(
-                    $variablePart,
-                    "|",
-                    $fixedPartsToRemove
-                );
-            }
-            $values = $this->parseUri($route);
-            foreach (explode("|", $fixedPartsToRemove) as $part) {
-                $values = str_replace($part, "|", $values);
-            }
-            preg_match_all("/(?!\{)[\w]+(?=\})/", $pattern, $matches);
-            $params = array_combine(
-                $matches[0],
-                explode("|", trim($values, "|"))
-            );
-            return $params;
+    private function getParams($route,$pattern){   
+        $fixedPartsToRemove=$pattern;
+        $fixedPartsToRemove=preg_replace('/\{[\w]+\}/','|',$fixedPartsToRemove);
+        $values=$this->parseUri($route);
+        foreach(explode('|',$fixedPartsToRemove) as $part){
+            $values=str_replace($part,'|',$values);
         }
+        $values=explode('|',trim($values,'|'));
+        preg_match_all('/(?!\{)[\w]+(?=\})/',$pattern,$matches);
+        $params=array_combine($matches[0],$values);
+        return $params;   
     }
     //Acessores
     public function addRoute(string $method, string $route, $action){

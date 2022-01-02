@@ -11,7 +11,7 @@
     Route::get('ola/{nome}/{idade}',function($nome,$idade){
     	echo "Hello ".$nome.", ".$idade;    
     });
-    Route::get('home','Controller@Home');
+    Route::get('cliente','Controller@index');
 ?>
 
     
